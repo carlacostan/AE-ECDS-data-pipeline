@@ -1,0 +1,9 @@
+{
+	"name": "RomeoCtest5-df",
+	"location": "ukwest",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "123731af-5052-4ed8-8250-02220a11064c",
+		"tenantId": "7ed65868-7210-4b5d-9802-4e144bcff10d"
+	}
+}
