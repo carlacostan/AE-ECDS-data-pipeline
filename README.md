@@ -5,16 +5,17 @@ Data pipeline for emergency department (ED) activity across England, including t
 
 ## Overview
 
-- This pipeline automates the extraction, transformation, and loading (ETL) of annual ED data published by NHS Digital into Azure Data Lake Storage (ADLS) Gen2. The data is processed to ensure consistency and quality, then stored in a partitioned format by `year`, optimised for efficient querying and analysis.
-- Dataset used: https://files.digital.nhs.uk/77/2ED6D3/AE_2324_ECDS_open_data_csv.csv which is yearly updated on the NHS Digital website.
+This pipeline automates the extraction, transformation, and loading (ETL) of annual ED data published by NHS Digital into Azure Data Lake Storage (ADLS) Gen2. The data is processed to ensure consistency and quality, then stored in a partitioned format by `year`, optimised for efficient querying and analysis.
 
 ---
 
 ## Architecture
 
+![alt text](images/architecture.png)
+
 ### Flow
 1. **Extraction**: Data is downloaded from the NHS Digital website and staged in an Azure Blob Storage container.
-2. **Transformation**: The data is cleaned, standardized, and validated in Databricks, with key data quality checks.
+2. **Transformation**: The data is cleaned, standardised, and validated in Databricks, with key data quality checks.
 3. **Loading**: The cleaned, partitioned data is stored in ADLS Gen2 in Parquet format for efficient querying.
 
 ---
@@ -25,7 +26,7 @@ Data pipeline for emergency department (ED) activity across England, including t
 - **Azure Blob Storage**: Stages raw CSV data from NHS Digital.
 - **Azure Databricks**: Processes, cleans, and transforms data for storage.
 - **Azure Data Lake Storage Gen2 (ADLS Gen2)**: Stores cleaned, partitioned data in Parquet format.
-- **Azure Key Vault and Databricks Secret Scope**: Manage and allow integration of access keys and connection strings into the scripts.
+- **Azure Key Vault**: Manages and stores secrets (e.g., storage account keys).
 - **Databricks Jobs**: Automates and schedules the ETL process.
 - **GitHub**: Used for version control, repository integrated with Databricks.
 
