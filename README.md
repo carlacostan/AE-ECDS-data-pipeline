@@ -82,8 +82,10 @@ This pipeline automates the extraction, transformation, and loading (ETL) of ann
   - **Data Visualisation**: Visualisations such as bar charts and line graphs can be generated in Databricks notebooks to provide insights into trends over time, by using tools like **Matplotlib**, **Seaborn**, or the built-in Databricks plotting features.
   - **Machine Learning**: If advanced analytics or predictive modeling is required, Databricks’ integration with ML libraries (e.g., **MLflow**, **MLlib**) makes it easy to implement machine learning models on the cleaned data.
 
-  - ---
+  ---
 
 ## Summary
 
 The AE-ECDS Reporting Pipeline, orchestrated by Azure Data Factory, provides an efficient, scalable, and secure solution for processing, storing, and analysing emergency department data. The integration of ADF enables seamless automation, while Databricks performs advanced transformations, ensuring that high-quality data is available to improve emergency healthcare services across England.
+
+Potential use cases include resource planning, performance monitoring, policy evaluation and future research.
