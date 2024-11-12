@@ -26,24 +26,34 @@ This pipeline automates the extraction, transformation, and loading (ETL) of ann
 - **Azure Data Lake Storage Gen2 (ADLS Gen2)**: Stores cleaned, partitioned data in Parquet format.
 - **Azure Key Vault**: Manages and stores secrets (e.g., storage account keys).
 - **Databricks Jobs**: Automates and schedules the ETL process.
-- **GitHub**: Version control for code management, collaboration, and tracking changes to the pipeline.
+- **GitHub**: Used for version control, repository integrated with Databricks.
 
 ---
 
 ## Technical Details
 
+The two scripts used are found in the 'databricks_notebooks' folder.
+
 ### 1. Extraction
 
-**Objective**: Download the CSV file from NHS Digital’s website and store it in Blob Storage.
+**Objective**: Download the CSV file from NHS Digital’s website and store it in Azure Blob Storage as a staging area.
 
 - **Location**: `wasbs://ecdsdata@aeecdsdata.blob.core.windows.net/AE_2324_ECDS_open_data_csv.csv`
-- **Storage Access**: Managed with a secure key stored in Azure Key Vault.
+- **Storage Access**: Created Databricks Secret Scope from Azure Key Vault to manage and access keys and connection strings for Blob Storage access.
+- **Steps Using Python**:
+  1. **Download the Data**: The CSV file is downloaded from the NHS Digital website using the `requests` library. This approach enables automated retrieval of the latest data.
+  2. **Save Locally in Databricks**: The downloaded file is temporarily saved in the Databricks file system (`/tmp/`) to facilitate upload.
+  3. **Upload to Azure Blob Storage**:
+     - **Connection Setup**: Using the `azure.storage.blob` library, a `BlobServiceClient` is created to handle connections to Blob Storage. The connection string is securely retrieved from Databricks Secrets.
+     - **Blob Upload**: A `BlobClient` uploads the CSV file to the specified container in Blob Storage. The container (`ecdsdata`) acts as a staging area for the raw data, ensuring that it is stored and readily accessible for the transformation step.
+
+  ![alt text](images/data_ingestion.png)
 
 ### 2. Transformation
 
 **Objective**: Clean and transform the data for consistency and quality.
 
-- **Environment**: Databricks Notebook
+- **Environment**: Databricks Notebook with mounted Blob Storage.
 - **Steps**:
   - **Trim Whitespaces** and **Handle Nulls** across columns.
   - **Cast 'MEASURE_VALUE'** as an integer by removing commas.
@@ -55,6 +65,10 @@ This pipeline automates the extraction, transformation, and loading (ETL) of ann
   - **Date Standardisation**: Convert the `REPORTING_PERIOD` column into a consistent `yyyy-MM` date format for uniformity across data.
   - **Partition Column (`year`) Creation**: Extract the `year` from `REPORTING_PERIOD` and add it as a separate column to enable partitioning by year.
   - **Data Quality Checks**: Verify that nulls are handled and that `MEASURE_VALUE` contains valid numeric data; any rows with unsupported formats or invalid data types are removed.
+
+  ![alt text](images/data_clean_write.png)
+  ![alt text](images/cleaned_data.png)
+
 
 ### 3. Storage in Azure Data Lake Storage Gen2 (ADLS Gen2)
 
@@ -75,7 +89,7 @@ This pipeline automates the extraction, transformation, and loading (ETL) of ann
 - **Monitoring**: ADF provides monitoring and alerting to track pipeline performance, detect failures, and send notifications when issues arise.
 
 ### 4. Data Analysis
-**Objective**: Enable efficient data analysis and visualisation of cleaned ED data for reporting and insights generation.
+An outline of potential data analysis capabilities for this data using Databricks.
 
   - **Data Analysis in Databricks**:
   - Databricks is used to load and analyse the partitioned Parquet data in ADLS Gen2. Using Spark SQL, analysts can run complex queries, filter data by `year`, and perform aggregations on key metrics (e.g., total attendances and admissions).
