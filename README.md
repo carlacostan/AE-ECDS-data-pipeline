@@ -25,7 +25,7 @@ Data pipeline for emergency department (ED) activity across England, including t
 - **Azure Blob Storage**: Stages raw CSV data from NHS Digital.
 - **Azure Databricks**: Processes, cleans, and transforms data for storage.
 - **Azure Data Lake Storage Gen2 (ADLS Gen2)**: Stores cleaned, partitioned data in Parquet format.
-- **Azure Key Vault**: Manages and stores secrets (e.g., storage account keys).
+- **Azure Key Vault and Databricks Secret Scope**: Manage and allow integration of access keys and connection strings into the scripts.
 - **Databricks Jobs**: Automates and schedules the ETL process.
 - **GitHub**: Used for version control, repository integrated with Databricks.
 
