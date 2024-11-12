@@ -50,7 +50,7 @@ This pipeline automates the extraction, transformation, and loading (ETL) of ann
   - **Standardise 'REPORTING_PERIOD'** to `yyyy-MM` format.
   - **Add Partition Column (`year`)**: Extract the year from `REPORTING_PERIOD` to use for partitioning.
     
-  - **Detailed Steps**:
+- **Detailed Steps**:
   - **Data Type Casting**: Convert the `MEASURE_VALUE` column to integer format by removing commas, allowing for numeric calculations in later analyses.
   - **Date Standardisation**: Convert the `REPORTING_PERIOD` column into a consistent `yyyy-MM` date format for uniformity across data.
   - **Partition Column (`year`) Creation**: Extract the `year` from `REPORTING_PERIOD` and add it as a separate column to enable partitioning by year.
