@@ -6,7 +6,7 @@ Data pipeline for emergency department (ED) activity across England, including t
 ## Overview
 
 This pipeline automates the extraction, transformation, and loading (ETL) of annual ED data published by NHS Digital into Azure Data Lake Storage (ADLS) Gen2. The data is processed to ensure consistency and quality, then stored in a partitioned format by `year`, optimised for efficient querying and analysis.
-
+Dataset used: https://files.digital.nhs.uk/77/2ED6D3/AE_2324_ECDS_open_data_csv.csv on the NHS Digital website.
 ---
 
 ## Architecture
